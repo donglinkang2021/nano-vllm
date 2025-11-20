@@ -48,23 +48,30 @@ outputs = llm.generate(prompts, sampling_params)
 outputs[0]["text"]
 ```
 
+Run it by:
+```bash
+uv run example.py
+```
+
 ## Benchmark
 
 See `bench.py` for benchmark.
-
+```bash
+uv run bench.py
+```
 **Test Configuration:**
-- Hardware: RTX 4070 Laptop (8GB)
 - Model: Qwen3-0.6B
 - Total Requests: 256 sequences
 - Input Length: Randomly sampled between 100–1024 tokens
 - Output Length: Randomly sampled between 100–1024 tokens
 
 **Performance Results:**
-| Inference Engine | Output Tokens | Time (s) | Throughput (tokens/s) |
-|----------------|-------------|----------|-----------------------|
-| vLLM           | 133,966     | 98.37    | 1361.84               |
-| Nano-vLLM      | 133,966     | 93.41    | 1434.13               |
-
+| Hardware            | Inference Engine | Output Tokens | Time (s) | Throughput (tokens/s) |
+|---------------------|------------------|---------------|----------|------------------------|
+| RTX 4070 Laptop (8GB) | vLLM           | 133,966       | 98.37    | 1361.84                |
+| RTX 4070 Laptop (8GB) | Nano-vLLM      | 133,966       | 93.41    | 1434.13                |
+| H200                | vLLM             | 133,966       | 8.39     | 15969.38               |
+| H200                | Nano-vLLM        | 133,966       | 6.89     | 19444.55               |
 
 ## Star History
 
