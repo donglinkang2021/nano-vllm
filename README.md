@@ -19,7 +19,7 @@ A lightweight vLLM implementation built from scratch.
 ## Installation
 
 ```bash
-pip install git+https://github.com/GeeeekExplorer/nano-vllm.git
+uv sync
 ```
 
 ## Model Download
@@ -29,6 +29,11 @@ To download the model weights manually, use the following command:
 huggingface-cli download --resume-download Qwen/Qwen3-0.6B \
   --local-dir ~/huggingface/Qwen3-0.6B/ \
   --local-dir-use-symlinks False
+```
+
+Or you can symlink your existing Hugging Face model directory:
+```bash
+ln -s /YOUR/HUGGINGFACE/MODEL/PATH models/Qwen3-0.6B
 ```
 
 ## Quick Start
