@@ -1,12 +1,18 @@
-from nanovllm import LLM, SamplingParams
 from transformers import AutoTokenizer
+
+USE_VLLM = True
+
+if USE_VLLM:
+    from vllm import LLM, SamplingParams
+else:
+    from nanovllm import LLM, SamplingParams
 
 def main():
     path = "models/Qwen3-0.6B"
     tokenizer = AutoTokenizer.from_pretrained(path)
     llm = LLM(path, enforce_eager=True, tensor_parallel_size=4)
 
-    sampling_params = SamplingParams(temperature=0.6, max_tokens=8192)
+    sampling_params = SamplingParams(temperature=0.6, top_p=0.95, max_tokens=8192)
     prompts = [
         "introduce yourself",
         "list all prime numbers within 100",
@@ -24,7 +30,10 @@ def main():
     for prompt, output in zip(prompts, outputs):
         print("\n")
         print(f"Prompt: {prompt!r}")
-        print(f"Completion: {output['text']!r}")
+        if USE_VLLM:
+            print(f"Completion: {output.outputs[0].text!r}")
+        else:
+            print(f"Completion: {output['text']!r}")
 
 
 if __name__ == "__main__":
